@@ -1,4 +1,5 @@
 ﻿#include "mainWindow.h"
+#include<Windows.h>
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
@@ -9,6 +10,19 @@ using namespace System::Runtime::InteropServices;
 
 namespace Calculator
 {
+	//============================== Hidding Carret From TextBox ===========================================================
+	System::Void mainWindow::tb_MainCalcText_MouseClick(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
+	{
+		//Had to cast Rich Text Box to HWND to hide caret from blinking, using static_cast<HWND>
+		HideCaret(static_cast<HWND>(tb_MainCalcText->Handle.ToPointer()));
+	}
+	System::Void mainWindow::tb_MainCalcText_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
+	{
+		HideCaret(static_cast<HWND>(tb_MainCalcText->Handle.ToPointer()));
+	}
+
+	//============================== End Hidding Carret From TextBox===========================================================
+	//
 	//==============================Number Buttons===========================================================
 	System::Void mainWindow::btn_Zero_Click(System::Object ^sender, System::EventArgs ^e)
 	{
@@ -108,4 +122,7 @@ namespace Calculator
 		tb_MainCalcText->Text += "9";
 		return System::Void();
 	}
+
+	//=============================================End Number buttons=====================================================
+	//=============================Operator buttons +,-,=,*,^,/=====================================================
 }

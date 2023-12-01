@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 namespace Calculator
 {
 	using namespace System;
@@ -37,12 +36,10 @@ namespace Calculator
 			}
 		}
 	private: System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel1;
-
 	private: System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel2;
 	private: System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel3;
 	private: System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel4;
 	private: System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel5;
-	private: System::Windows::Forms::RichTextBox ^tb_MainCalcText;
 	private: System::Windows::Forms::Button ^btn_Equal;
 	private: System::Windows::Forms::Button ^btn_Period;
 	private: System::Windows::Forms::Button ^btn_Zero;
@@ -64,13 +61,10 @@ namespace Calculator
 	private: System::Windows::Forms::Button ^button2;
 	private: System::Windows::Forms::Button ^button1;
 	private: System::Windows::Forms::Button ^btn_BackSpace;
-
 	private: System::Windows::Forms::Button ^btn_Clear;
-
 	private: System::Windows::Forms::Button ^btn_CE;
-
 	private: System::Windows::Forms::Button ^btn_Percent;
-
+	private: System::Windows::Forms::RichTextBox ^tb_MainCalcText;
 	private: System::ComponentModel::IContainer ^components;
 
 	private:
@@ -499,7 +493,7 @@ namespace Calculator
 			this->tableLayoutPanel3->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 																								  12.66234F)));
 			this->tableLayoutPanel3->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
-																								  59)));
+																								  67)));
 			this->tableLayoutPanel3->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tableLayoutPanel3->Location = System::Drawing::Point(1, 1);
 			this->tableLayoutPanel3->Margin = System::Windows::Forms::Padding(0);
@@ -544,21 +538,21 @@ namespace Calculator
 			// tb_MainCalcText
 			//
 			this->tb_MainCalcText->BackColor = System::Drawing::Color::White;
-			this->tb_MainCalcText->DetectUrls = false;
+			this->tb_MainCalcText->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->tb_MainCalcText->Cursor = System::Windows::Forms::Cursors::IBeam;
 			this->tb_MainCalcText->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->tb_MainCalcText->Enabled = false;
-			this->tb_MainCalcText->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-																	   static_cast<System::Byte>(0)));
+			this->tb_MainCalcText->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 36));
 			this->tb_MainCalcText->ForeColor = System::Drawing::Color::Black;
-			this->tb_MainCalcText->HideSelection = false;
 			this->tb_MainCalcText->Location = System::Drawing::Point(0, 32);
 			this->tb_MainCalcText->Margin = System::Windows::Forms::Padding(0);
-			this->tb_MainCalcText->Multiline = false;
+			this->tb_MainCalcText->MaxLength = 16;
 			this->tb_MainCalcText->Name = L"tb_MainCalcText";
 			this->tb_MainCalcText->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
-			this->tb_MainCalcText->Size = System::Drawing::Size(470, 90);
+			this->tb_MainCalcText->Size = System::Drawing::Size(470, 68);
 			this->tb_MainCalcText->TabIndex = 0;
 			this->tb_MainCalcText->Text = L"0";
+			this->tb_MainCalcText->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_MainCalcText_MouseClick);
+			this->tb_MainCalcText->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_MainCalcText_MouseDown);
 			//
 			// mainWindow
 			//
@@ -577,6 +571,7 @@ namespace Calculator
 			this->tableLayoutPanel1->ResumeLayout(false);
 			this->tableLayoutPanel2->ResumeLayout(false);
 			this->tableLayoutPanel5->ResumeLayout(false);
+			this->tableLayoutPanel5->PerformLayout();
 			this->ResumeLayout(false);
 		}
 #pragma endregion
@@ -614,6 +609,7 @@ namespace Calculator
 	//	this->Close();
 	//}
 
+		// Number Buttons
 	private: System::Void btn_Zero_Click(System::Object ^sender, System::EventArgs ^e);
 	private: System::Void btn_One_Click(System::Object ^sender, System::EventArgs ^e);
 	private: System::Void btn_Two_Click(System::Object ^sender, System::EventArgs ^e);
@@ -624,5 +620,9 @@ namespace Calculator
 	private: System::Void btn_Seven_Click(System::Object ^sender, System::EventArgs ^e);
 	private: System::Void btn_Eight_Click(System::Object ^sender, System::EventArgs ^e);
 	private: System::Void btn_Nine_Click(System::Object ^sender, System::EventArgs ^e);
+
+		   // Carret Hide
+	private: System::Void tb_MainCalcText_MouseClick(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e);
+	private: System::Void tb_MainCalcText_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e);
 	};
 }
