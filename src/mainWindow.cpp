@@ -16,19 +16,45 @@ using namespace System::Runtime::InteropServices;
 
 namespace Calculator
 {
-	//=============================== Dragging Window ==============================================
+	//=============================== Calculation Functions  ==============================================
+	double mainWindow::Calc(double num1, String ^oper_char, double num2)
+	{
+		if(oper_char == "+")
+		{
+			return num1 += num2;
+		}
+		else if(oper_char == "-")
+		{
+			return num1 -= num2;
+		}
+		else if(oper_char == "*")
+		{
+			return num1 *= num2;
+		}
+		else if(oper_char == "/")
+		{
+			return num1 /= num2;
+		}
+		else
+		{
+			return num1;
+		}
+	}
 
+	//=============================== END Calculation Functions ==============================================
+	//=============================== Dragging Window ==============================================
 	System::Void Calculator::mainWindow::tbl_TitleBar_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
 	{
 		is_dragging = true;
 		//getting mouse cursor position
 		drag_Cursor_point = Cursor->Position;
-		//getting this form location
+		//getting this(mainWindow) form location
 		drag_WindowForm_Point = mainWindow::Location;
 	}
+
 	System::Void mainWindow::tbl_TitleBar_MouseMove(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
 	{
-		//Only if left mouse button clicked
+		//Only if left mouse button down on window form clicked
 		if(e->Button == System::Windows::Forms::MouseButtons::Left)
 		{
 			Point new_position = Point::Subtract(Cursor->Position, System::Drawing::Size(drag_Cursor_point));
@@ -90,9 +116,24 @@ namespace Calculator
 		number_in = safe_cast<Button ^>(sender);
 		if(tb_MainCalcText->Text == "0")
 		{
-			tb_MainCalcText->Text = "";
-			tb_MainCalcText->Text += number_in->Text;
-		} else
+			tb_MainCalcText->Text = number_in->Text;
+			tb_MainCalcText->Modified = true;
+
+		}
+		else if(is_operator == true)
+		{
+			if(is_operator == true && tb_MainCalcText->Modified == true)
+			{
+				tb_MainCalcText->Text += number_in->Text;
+				tb_MainCalcText->Modified = true;
+			}
+			else
+			{
+				tb_MainCalcText->Text = number_in->Text;
+				tb_MainCalcText->Modified = true;
+			}
+		}
+		else
 		{
 			tb_MainCalcText->Text += number_in->Text;
 		}
@@ -102,38 +143,78 @@ namespace Calculator
 
 	System::Void Calculator::mainWindow::operation_Buttons(System::Object ^sender, System::EventArgs ^e)
 	{
-		operator_char = safe_cast<Button ^>(sender);
-		oper = operator_char->Text;
+		btn_operator = safe_cast<Button ^>(sender);
 
-		if(tb_smallWindow->Text->EndsWith("+") || tb_smallWindow->Text->EndsWith("-") ||
-		   tb_smallWindow->Text->EndsWith("*") || tb_smallWindow->Text->EndsWith("/") ||
-		   tb_smallWindow->Text->EndsWith("^"))
+		if(!is_operator)
 		{
-			tb_smallWindow->Text = tb_MainCalcText->Text->Remove(tb_MainCalcText->Text->Length - 1);
+			oper_char = btn_operator->Text;
 			num1 = double::Parse(tb_MainCalcText->Text);
-		} else
-		{
-			num1 = double::Parse(tb_MainCalcText->Text);
+			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
+			is_operator = true;
 		}
-		if(tb_smallWindow->Text->EndsWith("+") || tb_smallWindow->Text->EndsWith("-") ||
-		   tb_smallWindow->Text->EndsWith("*") || tb_smallWindow->Text->EndsWith("/") ||
-		   tb_smallWindow->Text->EndsWith("^"))
+		else if(!tb_MainCalcText->Modified)
 		{
-			tb_smallWindow->Text += tb_MainCalcText->Text->Remove(tb_MainCalcText->Text->Length - 1);
-			tb_smallWindow->Text += oper;
-		} else
-		{
-			tb_smallWindow->Text = num1.ToString() + oper;
+			oper_char = btn_operator->Text;
+			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
 		}
+		else if(tb_MainCalcText->Modified == true)
+		{
+			num2 = double::Parse(tb_MainCalcText->Text);
+			num1 = Calc(num1, oper_char, num2);
+			oper_char = btn_operator->Text;
+			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
+			tb_MainCalcText->Text = num1.ToString();
+		}
+		//}
 	}
 	System::Void mainWindow::decimal_Buttons(System::Object ^sender, System::EventArgs ^e)
 	{
 		Button ^decimal_Button = safe_cast<Button ^>(sender);
 
-		if(!tb_MainCalcText->Text->Contains("."))
+		if(!tb_MainCalcText->Text->Contains(".") && !is_operator && !tb_MainCalcText->Modified)
 		{
 			tb_MainCalcText->Text += decimal_Button->Text;
 		}
+		else if(!tb_MainCalcText->Text->Contains("."))
+		{
+			tb_MainCalcText->Text += decimal_Button->Text;
+			tb_MainCalcText->Modified = true;
+		}
+	}
+
+	System::Void mainWindow::btn_BackSpace_Click(System::Object ^sender, System::EventArgs ^e)
+	{
+		tb_MainCalcText->Text = tb_MainCalcText->Text->Remove(tb_MainCalcText->TextLength - 1);
+
+		if(tb_MainCalcText->Text == "")
+		{
+			tb_MainCalcText->Text = "0";
+		}
+			tb_MainCalcText->Modified = true;
+	}
+
+	System::Void mainWindow::btn_Clear_Click(System::Object ^sender, System::EventArgs ^e)
+	{
+		tb_MainCalcText->Clear();
+		if(tb_MainCalcText->Text == "")
+		{
+			tb_MainCalcText->Text = "0";
+		}
+		tb_smallWindow->Text = "";
+		num1 = 0;
+		num2 = 0;
+		oper_char = nullptr;
+		is_operator = false;
+		return System::Void();
+	}
+	System::Void mainWindow::btn_CE_Click(System::Object ^sender, System::EventArgs ^e)
+	{
+		tb_MainCalcText->Clear();
+		if(tb_MainCalcText->Text == "")
+		{
+			tb_MainCalcText->Text = "0";
+		}
+		return System::Void();
 	}
 	//=============================Operator buttons +,-,=,*,^,/ =====================================================
 }

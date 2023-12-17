@@ -121,8 +121,8 @@ namespace Calculator
 			this->tableLayoutControlPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->tableLayoutPanel4 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->tableLayoutPanel5 = (gcnew System::Windows::Forms::TableLayoutPanel());
-			this->tb_MainCalcText = (gcnew System::Windows::Forms::TextBox());
 			this->tb_smallWindow = (gcnew System::Windows::Forms::TextBox());
+			this->tb_MainCalcText = (gcnew System::Windows::Forms::TextBox());
 			this->tableLayoutPanel1->SuspendLayout();
 			this->tableLayoutPanel2->SuspendLayout();
 			this->tableLayoutControlPanel->SuspendLayout();
@@ -153,6 +153,7 @@ namespace Calculator
 			this->btn_BackSpace->TabIndex = 23;
 			this->btn_BackSpace->Text = L"<=";
 			this->btn_BackSpace->UseVisualStyleBackColor = true;
+			this->btn_BackSpace->Click += gcnew System::EventHandler(this, &mainWindow::btn_BackSpace_Click);
 			//
 			// btn_CE
 			//
@@ -165,6 +166,7 @@ namespace Calculator
 			this->btn_CE->TabIndex = 21;
 			this->btn_CE->Text = L"CE";
 			this->btn_CE->UseVisualStyleBackColor = true;
+			this->btn_CE->Click += gcnew System::EventHandler(this, &mainWindow::btn_CE_Click);
 			//
 			// btn_Clear
 			//
@@ -177,14 +179,15 @@ namespace Calculator
 			this->btn_Clear->TabIndex = 22;
 			this->btn_Clear->Text = L"C";
 			this->btn_Clear->UseVisualStyleBackColor = true;
+			this->btn_Clear->Click += gcnew System::EventHandler(this, &mainWindow::btn_Clear_Click);
 			//
 			// btn_Close
 			//
 			this->btn_Close->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Close->Location = System::Drawing::Point(416, 0);
+			this->btn_Close->Location = System::Drawing::Point(412, 0);
 			this->btn_Close->Margin = System::Windows::Forms::Padding(0);
 			this->btn_Close->Name = L"btn_Close";
-			this->btn_Close->Size = System::Drawing::Size(54, 30);
+			this->btn_Close->Size = System::Drawing::Size(58, 30);
 			this->btn_Close->TabIndex = 0;
 			this->btn_Close->Text = L"X";
 			this->btn_Close->UseVisualStyleBackColor = true;
@@ -257,7 +260,7 @@ namespace Calculator
 			// btn_Maximize
 			//
 			this->btn_Maximize->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Maximize->Location = System::Drawing::Point(370, 0);
+			this->btn_Maximize->Location = System::Drawing::Point(366, 0);
 			this->btn_Maximize->Margin = System::Windows::Forms::Padding(0);
 			this->btn_Maximize->Name = L"btn_Maximize";
 			this->btn_Maximize->Size = System::Drawing::Size(46, 30);
@@ -269,7 +272,7 @@ namespace Calculator
 			// btn_Minimize
 			//
 			this->btn_Minimize->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Minimize->Location = System::Drawing::Point(321, 0);
+			this->btn_Minimize->Location = System::Drawing::Point(317, 0);
 			this->btn_Minimize->Margin = System::Windows::Forms::Padding(0);
 			this->btn_Minimize->Name = L"btn_Minimize";
 			this->btn_Minimize->Size = System::Drawing::Size(49, 30);
@@ -553,7 +556,7 @@ namespace Calculator
 			this->tableLayoutControlPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 																										12.66234F)));
 			this->tableLayoutControlPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
-																										53)));
+																										57)));
 			this->tableLayoutControlPanel->Controls->Add(this->btn_Close, 3, 0);
 			this->tableLayoutControlPanel->Controls->Add(this->btn_Maximize, 2, 0);
 			this->tableLayoutControlPanel->Controls->Add(this->btn_Minimize, 1, 0);
@@ -605,25 +608,6 @@ namespace Calculator
 			this->tableLayoutPanel5->Size = System::Drawing::Size(470, 122);
 			this->tableLayoutPanel5->TabIndex = 2;
 			//
-			// tb_MainCalcText
-			//
-			this->tb_MainCalcText->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->tb_MainCalcText->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->tb_MainCalcText->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-																	   static_cast<System::Byte>(0)));
-			this->tb_MainCalcText->Location = System::Drawing::Point(0, 32);
-			this->tb_MainCalcText->Margin = System::Windows::Forms::Padding(0);
-			this->tb_MainCalcText->MaxLength = 16;
-			this->tb_MainCalcText->Multiline = true;
-			this->tb_MainCalcText->Name = L"tb_MainCalcText";
-			this->tb_MainCalcText->ReadOnly = true;
-			this->tb_MainCalcText->Size = System::Drawing::Size(470, 90);
-			this->tb_MainCalcText->TabIndex = 2;
-			this->tb_MainCalcText->Text = L"0";
-			this->tb_MainCalcText->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->tb_MainCalcText->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_MainCalcText_MouseClick);
-			this->tb_MainCalcText->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_MainCalcText_MouseDown);
-			//
 			// tb_smallWindow
 			//
 			this->tb_smallWindow->BorderStyle = System::Windows::Forms::BorderStyle::None;
@@ -638,6 +622,26 @@ namespace Calculator
 			this->tb_smallWindow->TabIndex = 3;
 			this->tb_smallWindow->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			//
+			// tb_MainCalcText
+			//
+			this->tb_MainCalcText->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->tb_MainCalcText->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->tb_MainCalcText->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 48, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																	   static_cast<System::Byte>(0)));
+			this->tb_MainCalcText->ImeMode = System::Windows::Forms::ImeMode::On;
+			this->tb_MainCalcText->Location = System::Drawing::Point(0, 32);
+			this->tb_MainCalcText->Margin = System::Windows::Forms::Padding(0);
+			this->tb_MainCalcText->MaxLength = 16;
+			this->tb_MainCalcText->Multiline = true;
+			this->tb_MainCalcText->Name = L"tb_MainCalcText";
+			this->tb_MainCalcText->ReadOnly = true;
+			this->tb_MainCalcText->Size = System::Drawing::Size(470, 90);
+			this->tb_MainCalcText->TabIndex = 2;
+			this->tb_MainCalcText->Text = L"0";
+			this->tb_MainCalcText->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->tb_MainCalcText->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_MainCalcText_MouseClick);
+			this->tb_MainCalcText->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_MainCalcText_MouseDown);
+			//
 			// mainWindow
 			//
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -651,7 +655,7 @@ namespace Calculator
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->MinimumSize = System::Drawing::Size(472, 651);
 			this->Name = L"mainWindow";
-			this->Text = L"mainWindow";
+			this->Text = L"a";
 			this->tableLayoutPanel1->ResumeLayout(false);
 			this->tableLayoutPanel2->ResumeLayout(false);
 			this->tableLayoutControlPanel->ResumeLayout(false);
@@ -670,11 +674,15 @@ namespace Calculator
 		//Supporting numbers
 		double num1{}, num2{};
 		bool is_operator;
-		String ^oper; //operator
+		String ^oper_char; //operator char
 		Button ^number_in;
-		Button ^operator_char;
+		Button ^btn_operator;
+
+		//Calculation functions
+		double Calc(double, String ^, double);
 
 		// Draging window
+		Point new_position;
 	private: System::Void tbl_TitleBar_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e);
 	private: System::Void tbl_TitleBar_MouseMove(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e);
 	private: System::Void tbl_TitleBar_MouseUp(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e);
@@ -686,8 +694,12 @@ namespace Calculator
 		   // Number Buttons
 
 	private: System::Void number_Inputs(System::Object ^sender, System::EventArgs ^e);
-	private: System::Void window_Action_Buttons(System::Object ^sender, System::EventArgs ^e);
 	private: System::Void operation_Buttons(System::Object ^sender, System::EventArgs ^e);
 	private: System::Void decimal_Buttons(System::Object ^sender, System::EventArgs ^e);
+		   // Other Buttons
+	private: System::Void window_Action_Buttons(System::Object ^sender, System::EventArgs ^e);
+	private: System::Void btn_Clear_Click(System::Object ^sender, System::EventArgs ^e);
+	private: System::Void btn_CE_Click(System::Object ^sender, System::EventArgs ^e);
+	private: System::Void btn_BackSpace_Click(System::Object ^sender, System::EventArgs ^e);
 	};
 }
