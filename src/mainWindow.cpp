@@ -118,7 +118,6 @@ namespace Calculator
 		{
 			tb_MainCalcText->Text = number_in->Text;
 			tb_MainCalcText->Modified = true;
-
 		}
 		else if(is_operator == true)
 		{
@@ -138,8 +137,8 @@ namespace Calculator
 			tb_MainCalcText->Text += number_in->Text;
 		}
 	}
-	//=============================================End Number buttons=====================================================
-	//=============================Operator buttons +,-,=,*,^,/,. =====================================================
+	//========================================End Number buttons=====================================================
+	//=============================Operator buttons +,-,*,^,/,. =====================================================
 
 	System::Void Calculator::mainWindow::operation_Buttons(System::Object ^sender, System::EventArgs ^e)
 	{
@@ -165,7 +164,6 @@ namespace Calculator
 			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
 			tb_MainCalcText->Text = num1.ToString();
 		}
-		//}
 	}
 	System::Void mainWindow::decimal_Buttons(System::Object ^sender, System::EventArgs ^e)
 	{
@@ -190,7 +188,7 @@ namespace Calculator
 		{
 			tb_MainCalcText->Text = "0";
 		}
-			tb_MainCalcText->Modified = true;
+		tb_MainCalcText->Modified = true;
 	}
 
 	System::Void mainWindow::btn_Clear_Click(System::Object ^sender, System::EventArgs ^e)
@@ -216,5 +214,26 @@ namespace Calculator
 		}
 		return System::Void();
 	}
-	//=============================Operator buttons +,-,=,*,^,/ =====================================================
+	//=============================END Operator buttons +,-,*,^,/,. ==============================================
+
+	//===================================Operator equality = =====================================================
+	System::Void mainWindow::btn_Equal_Click(System::Object ^sender, System::EventArgs ^e)
+	{
+		if(tb_MainCalcText->Modified)
+		{
+			num2 = double::Parse(tb_MainCalcText->Text);
+			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+			num1 = Calc(num1, oper_char, num2);
+			tb_MainCalcText->Text = num1.ToString();
+		}
+		else
+		{
+			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+			num1 = Calc(num1, oper_char, num2);
+			tb_MainCalcText->Text = num1.ToString();
+		}
+
+		return System::Void();
+	}
+	//============================== END Operator equality = =====================================================
 }
