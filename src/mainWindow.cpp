@@ -43,69 +43,85 @@ namespace Calculator
 
 	//=============================== END Calculation Functions ==============================================
 	//=============================== Dragging Window ==============================================
-	System::Void Calculator::mainWindow::tbl_TitleBar_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
-	{
-		is_dragging = true;
-		//getting mouse cursor position
-		drag_Cursor_point = Cursor->Position;
-		//getting this(mainWindow) form location
-		drag_WindowForm_Point = mainWindow::Location;
-	}
+	//System::Void Calculator::mainWindow::tbl_TitleBar_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
+	//{
+	//	is_dragging = true;
+	//	//getting mouse cursor position
+	//	drag_Cursor_point = Cursor->Position;
+	//	//getting this(mainWindow) form location
+	//	drag_WindowForm_Point = mainWindow::Location;
+	//}
 
-	System::Void mainWindow::tbl_TitleBar_MouseMove(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
-	{
-		//Only if left mouse button down on window form clicked
-		if(e->Button == System::Windows::Forms::MouseButtons::Left)
-		{
-			Point new_position = Point::Subtract(Cursor->Position, System::Drawing::Size(drag_Cursor_point));
-			mainWindow::Location = Point::Add(drag_WindowForm_Point, System::Drawing::Size(new_position));
-		}
-	}
+	//System::Void mainWindow::tbl_TitleBar_MouseMove(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
+	//{
+	//	//Only if left mouse button down on window form clicked
+	//	if(e->Button == System::Windows::Forms::MouseButtons::Left)
+	//	{
+	//		Point new_position = Point::Subtract(Cursor->Position, System::Drawing::Size(drag_Cursor_point));
+	//		mainWindow::Location = Point::Add(drag_WindowForm_Point, System::Drawing::Size(new_position));
+	//	}
+	//}
 
-	System::Void Calculator::mainWindow::tbl_TitleBar_MouseUp(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
-	{
-		is_dragging = false;
-	}
+	//System::Void Calculator::mainWindow::tbl_TitleBar_MouseUp(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
+	//{
+	//	is_dragging = false;
+	//}
 	//=============================== END  Dragging Window ==============================================
 
 	//============================== Window Buttons  ===========================================================
-	System::Void Calculator::mainWindow::window_Action_Buttons(System::Object ^sender, System::EventArgs ^e)
-	{
-		//tabindex:
-		// 0 - close window
-		// 1 - maximize
-		// 2 - minimize
+	//System::Void Calculator::mainWindow::window_Action_Buttons(System::Object ^sender, System::EventArgs ^e)
+	//{
+	//	//tabindex:
+	//	// 0 - close window
+	//	// 1 - maximize
+	//	// 2 - minimize
 
-		Button ^action_Btn = safe_cast<Button ^>(sender);
-		if(action_Btn->TabIndex == 0)
-		{
-			this->Close();
-		}
-		if(action_Btn->TabIndex == 1)
-		{
-		}
-		if(action_Btn->TabIndex == 2)
-		{
-		}
-	}
+	//	Button ^action_Btn = safe_cast<Button ^>(sender);
+	//	if(action_Btn->TabIndex == 0)
+	//	{
+	//		this->Close();
+	//	}
+	//	if(action_Btn->TabIndex == 1)
+	//	{
+	//	}
+	//	if(action_Btn->TabIndex == 2)
+	//	{
+	//	}
+	//}
 	//============================== End Window Buttons  ===========================================================
 
 	//============================== Hidding Carret From TextBox ===========================================================
 	System::Void mainWindow::tb_MainCalcText_MouseClick(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
 	{
-		HWND Caret;
-		Caret = (HWND)(tb_MainCalcText->Handle.ToPointer());
+		HWND Caret_MainCalcText;
+		Caret_MainCalcText = (HWND)(tb_MainCalcText->Handle.ToPointer());
 
 		//Had to cast Rich Text Box to HWND to hide caret from blinking, using static_cast<HWND>
-		HideCaret(Caret);
+		HideCaret(Caret_MainCalcText);
 	}
 	System::Void mainWindow::tb_MainCalcText_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
 	{
-		HWND Caret;
-		Caret = (HWND)(tb_MainCalcText->Handle.ToPointer());
+		HWND Caret_MainCalcText;
+		Caret_MainCalcText = (HWND)(tb_MainCalcText->Handle.ToPointer());
 
 		//Had to cast Rich Text Box to HWND to hide caret from blinking, using static_cast<HWND>
-		HideCaret(Caret);
+		HideCaret(Caret_MainCalcText);
+	}
+
+	System::Void mainWindow::tb_smallWindow_MouseClick(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
+	{
+		HWND Caret_smallCalcText;
+		Caret_smallCalcText = (HWND)(tb_smallWindow->Handle.ToPointer());
+
+		HideCaret(Caret_smallCalcText);
+	}
+
+	System::Void mainWindow::tb_smallWindow_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
+	{
+		HWND Caret_smallCalcText;
+		Caret_smallCalcText = (HWND)(tb_smallWindow->Handle.ToPointer());
+
+		HideCaret(Caret_smallCalcText);
 	}
 
 	//============================== End Hidding Carret From TextBox===========================================================
@@ -114,28 +130,51 @@ namespace Calculator
 	System::Void Calculator::mainWindow::number_Inputs(System::Object ^sender, System::EventArgs ^e)
 	{
 		number_in = safe_cast<Button ^>(sender);
+
 		if(tb_MainCalcText->Text == "0")
 		{
 			tb_MainCalcText->Text = number_in->Text;
 			tb_MainCalcText->Modified = true;
 		}
-		else if(is_operator == true)
+		else
 		{
-			if(is_operator == true && tb_MainCalcText->Modified == true)
-			{
-				tb_MainCalcText->Text += number_in->Text;
-				tb_MainCalcText->Modified = true;
-			}
-			else
+			if(!tb_MainCalcText->Modified)
 			{
 				tb_MainCalcText->Text = number_in->Text;
 				tb_MainCalcText->Modified = true;
 			}
+			else
+			{
+				tb_MainCalcText->Text += number_in->Text;
+				tb_MainCalcText->Modified = true;
+			}
 		}
-		else
-		{
-			tb_MainCalcText->Text += number_in->Text;
-		}
+		// //if(tb_MainCalcText->Text == "0")
+		//{
+		//	tb_MainCalcText->Text = number_in->Text;
+		//}
+		//else if(is_operator_clicked == true)
+		//{
+		//	if(is_operator_clicked == true && tb_MainCalcText->Modified == true)
+		//	{
+		//		tb_MainCalcText->Text += number_in->Text;
+		//	}
+		//	else
+		//	{
+		//		tb_MainCalcText->Text = number_in->Text;
+		//	}
+		//}
+		//else
+		//{
+		//	if(tb_MainCalcText->Modified == false)
+		//	{
+		//		tb_MainCalcText->Text += number_in->Text;
+		//	}
+		//	else
+		//	{
+		//		tb_MainCalcText->Text = number_in->Text;
+		//	}
+		//}
 	}
 	//========================================End Number buttons=====================================================
 	//=============================Operator buttons +,-,*,^,/,. =====================================================
@@ -144,12 +183,13 @@ namespace Calculator
 	{
 		btn_operator = safe_cast<Button ^>(sender);
 
-		if(!is_operator)
+		if(!is_operator_clicked)
 		{
 			oper_char = btn_operator->Text;
 			num1 = double::Parse(tb_MainCalcText->Text);
 			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
-			is_operator = true;
+			is_operator_clicked = true;
+			tb_MainCalcText->Modified = false;
 		}
 		else if(!tb_MainCalcText->Modified)
 		{
@@ -169,7 +209,7 @@ namespace Calculator
 	{
 		Button ^decimal_Button = safe_cast<Button ^>(sender);
 
-		if(!tb_MainCalcText->Text->Contains(".") && !is_operator && !tb_MainCalcText->Modified)
+		if(!tb_MainCalcText->Text->Contains(".") && !is_operator_clicked && !tb_MainCalcText->Modified)
 		{
 			tb_MainCalcText->Text += decimal_Button->Text;
 		}
@@ -179,7 +219,6 @@ namespace Calculator
 			tb_MainCalcText->Modified = true;
 		}
 	}
-
 	System::Void mainWindow::btn_BackSpace_Click(System::Object ^sender, System::EventArgs ^e)
 	{
 		tb_MainCalcText->Text = tb_MainCalcText->Text->Remove(tb_MainCalcText->TextLength - 1);
@@ -190,7 +229,6 @@ namespace Calculator
 		}
 		tb_MainCalcText->Modified = true;
 	}
-
 	System::Void mainWindow::btn_Clear_Click(System::Object ^sender, System::EventArgs ^e)
 	{
 		tb_MainCalcText->Clear();
@@ -202,8 +240,8 @@ namespace Calculator
 		num1 = 0;
 		num2 = 0;
 		oper_char = nullptr;
-		is_operator = false;
-		return System::Void();
+		is_operator_clicked = false;
+		tb_MainCalcText->Modified = false;
 	}
 	System::Void mainWindow::btn_CE_Click(System::Object ^sender, System::EventArgs ^e)
 	{
@@ -212,7 +250,6 @@ namespace Calculator
 		{
 			tb_MainCalcText->Text = "0";
 		}
-		return System::Void();
 	}
 	//=============================END Operator buttons +,-,*,^,/,. ==============================================
 
@@ -221,10 +258,18 @@ namespace Calculator
 	{
 		if(tb_MainCalcText->Modified)
 		{
-			num2 = double::Parse(tb_MainCalcText->Text);
-			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
-			num1 = Calc(num1, oper_char, num2);
-			tb_MainCalcText->Text = num1.ToString();
+			if(!is_operator_clicked)
+			{
+				num1 = double::Parse(tb_MainCalcText->Text);
+				tb_smallWindow->Text = num1.ToString() + " =";
+			}
+			else
+			{
+				num2 = double::Parse(tb_MainCalcText->Text);
+				tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+				num1 = Calc(num1, oper_char, num2);
+				tb_MainCalcText->Text = num1.ToString();
+			}
 		}
 		else
 		{
@@ -232,8 +277,6 @@ namespace Calculator
 			num1 = Calc(num1, oper_char, num2);
 			tb_MainCalcText->Text = num1.ToString();
 		}
-
-		return System::Void();
 	}
 	//============================== END Operator equality = =====================================================
 }
