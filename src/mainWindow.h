@@ -63,13 +63,14 @@ namespace Calculator
 		System::Windows::Forms::Button ^btn_Zero;
 		System::Windows::Forms::Button ^button1;
 		System::Windows::Forms::Button ^button2;
-		System::Windows::Forms::Button ^button3;
-		System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel1;
-		System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel2;
-		System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel4;
-		System::Windows::Forms::TextBox ^tb_MainCalcText;
-		System::Windows::Forms::TextBox ^tb_smallWindow;
-		System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel5;
+	private: System::Windows::Forms::Button ^btn_SqrRoot;
+
+		   System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel1;
+		   System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel2;
+		   System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel4;
+		   System::Windows::Forms::TextBox ^tb_MainCalcText;
+		   System::Windows::Forms::TextBox ^tb_smallWindow;
+		   System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel5;
 
 	private:
 		/// <summary>
@@ -83,7 +84,6 @@ namespace Calculator
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager ^resources = (gcnew System::ComponentModel::ComponentResourceManager(mainWindow::typeid));
 			this->btn_Add = (gcnew System::Windows::Forms::Button());
 			this->btn_BackSpace = (gcnew System::Windows::Forms::Button());
 			this->btn_CE = (gcnew System::Windows::Forms::Button());
@@ -107,7 +107,7 @@ namespace Calculator
 			this->btn_Zero = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->btn_SqrRoot = (gcnew System::Windows::Forms::Button());
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->tableLayoutPanel4 = (gcnew System::Windows::Forms::TableLayoutPanel());
@@ -118,11 +118,12 @@ namespace Calculator
 			this->tableLayoutPanel2->SuspendLayout();
 			this->tableLayoutPanel5->SuspendLayout();
 			this->SuspendLayout();
-			//
+			// 
 			// btn_Add
-			//
+			// 
 			this->btn_Add->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Add->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Add->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+															   static_cast<System::Byte>(0)));
 			this->btn_Add->Location = System::Drawing::Point(355, 301);
 			this->btn_Add->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Add->Name = L"btn_Add";
@@ -131,9 +132,9 @@ namespace Calculator
 			this->btn_Add->Text = L"+";
 			this->btn_Add->UseVisualStyleBackColor = true;
 			this->btn_Add->Click += gcnew System::EventHandler(this, &mainWindow::operation_Buttons);
-			//
+			// 
 			// btn_BackSpace
-			//
+			// 
 			this->btn_BackSpace->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btn_BackSpace->Font = (gcnew System::Drawing::Font(L"Segoe Fluent Icons", 19.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 																	 static_cast<System::Byte>(0)));
@@ -145,11 +146,12 @@ namespace Calculator
 			this->btn_BackSpace->Text = L"";
 			this->btn_BackSpace->UseVisualStyleBackColor = true;
 			this->btn_BackSpace->Click += gcnew System::EventHandler(this, &mainWindow::btn_BackSpace_Click);
-			//
+			// 
 			// btn_CE
-			//
+			// 
 			this->btn_CE->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_CE->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_CE->Font = (gcnew System::Drawing::Font(L"MS PGothic", 25.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+															  static_cast<System::Byte>(0)));
 			this->btn_CE->Location = System::Drawing::Point(119, 1);
 			this->btn_CE->Margin = System::Windows::Forms::Padding(1);
 			this->btn_CE->Name = L"btn_CE";
@@ -158,11 +160,12 @@ namespace Calculator
 			this->btn_CE->Text = L"CE";
 			this->btn_CE->UseVisualStyleBackColor = true;
 			this->btn_CE->Click += gcnew System::EventHandler(this, &mainWindow::btn_CE_Click);
-			//
+			// 
 			// btn_Clear
-			//
+			// 
 			this->btn_Clear->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Clear->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Clear->Font = (gcnew System::Drawing::Font(L"MS PGothic", 25.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																 static_cast<System::Byte>(0)));
 			this->btn_Clear->Location = System::Drawing::Point(237, 1);
 			this->btn_Clear->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Clear->Name = L"btn_Clear";
@@ -171,24 +174,26 @@ namespace Calculator
 			this->btn_Clear->Text = L"C";
 			this->btn_Clear->UseVisualStyleBackColor = true;
 			this->btn_Clear->Click += gcnew System::EventHandler(this, &mainWindow::btn_Clear_Click);
-			//
+			// 
 			// btn_Division
-			//
+			// 
 			this->btn_Division->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Division->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Division->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																	static_cast<System::Byte>(0)));
 			this->btn_Division->Location = System::Drawing::Point(355, 76);
 			this->btn_Division->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Division->Name = L"btn_Division";
 			this->btn_Division->Size = System::Drawing::Size(116, 73);
 			this->btn_Division->TabIndex = 4;
-			this->btn_Division->Text = L"/";
+			this->btn_Division->Text = L"÷";
 			this->btn_Division->UseVisualStyleBackColor = true;
 			this->btn_Division->Click += gcnew System::EventHandler(this, &mainWindow::operation_Buttons);
-			//
+			// 
 			// btn_Eight
-			//
+			// 
 			this->btn_Eight->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Eight->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Eight->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																 static_cast<System::Byte>(0)));
 			this->btn_Eight->Location = System::Drawing::Point(119, 151);
 			this->btn_Eight->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Eight->Name = L"btn_Eight";
@@ -197,11 +202,12 @@ namespace Calculator
 			this->btn_Eight->Text = L"8";
 			this->btn_Eight->UseVisualStyleBackColor = true;
 			this->btn_Eight->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// btn_Equal
-			//
+			// 
 			this->btn_Equal->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Equal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Equal->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																 static_cast<System::Byte>(0)));
 			this->btn_Equal->Location = System::Drawing::Point(355, 376);
 			this->btn_Equal->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Equal->Name = L"btn_Equal";
@@ -210,11 +216,12 @@ namespace Calculator
 			this->btn_Equal->Text = L"=";
 			this->btn_Equal->UseVisualStyleBackColor = true;
 			this->btn_Equal->Click += gcnew System::EventHandler(this, &mainWindow::btn_Equal_Click);
-			//
+			// 
 			// btn_Five
-			//
+			// 
 			this->btn_Five->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Five->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Five->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																static_cast<System::Byte>(0)));
 			this->btn_Five->Location = System::Drawing::Point(119, 226);
 			this->btn_Five->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Five->Name = L"btn_Five";
@@ -223,11 +230,12 @@ namespace Calculator
 			this->btn_Five->Text = L"5";
 			this->btn_Five->UseVisualStyleBackColor = true;
 			this->btn_Five->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// btn_Four
-			//
+			// 
 			this->btn_Four->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Four->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Four->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																static_cast<System::Byte>(0)));
 			this->btn_Four->Location = System::Drawing::Point(1, 226);
 			this->btn_Four->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Four->Name = L"btn_Four";
@@ -236,38 +244,40 @@ namespace Calculator
 			this->btn_Four->Text = L"4";
 			this->btn_Four->UseVisualStyleBackColor = true;
 			this->btn_Four->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// btn_Multiply
-			//
+			// 
 			this->btn_Multiply->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Multiply->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->btn_Multiply->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 																	static_cast<System::Byte>(0)));
 			this->btn_Multiply->Location = System::Drawing::Point(355, 151);
 			this->btn_Multiply->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Multiply->Name = L"btn_Multiply";
 			this->btn_Multiply->Size = System::Drawing::Size(116, 73);
 			this->btn_Multiply->TabIndex = 3;
-			this->btn_Multiply->Text = L"*";
+			this->btn_Multiply->Text = L"×";
 			this->btn_Multiply->UseVisualStyleBackColor = true;
 			this->btn_Multiply->Click += gcnew System::EventHandler(this, &mainWindow::operation_Buttons);
-			//
+			// 
 			// btn_Negative
-			//
+			// 
 			this->btn_Negative->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Negative->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Negative->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+																	static_cast<System::Byte>(0)));
 			this->btn_Negative->Location = System::Drawing::Point(1, 376);
 			this->btn_Negative->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Negative->Name = L"btn_Negative";
 			this->btn_Negative->Size = System::Drawing::Size(116, 76);
 			this->btn_Negative->TabIndex = 7;
-			this->btn_Negative->Text = L"+/-";
+			this->btn_Negative->Text = L"⁺/₋";
 			this->btn_Negative->UseVisualStyleBackColor = true;
-			this->btn_Negative->Click += gcnew System::EventHandler(this, &mainWindow::operation_Buttons);
-			//
+			this->btn_Negative->Click += gcnew System::EventHandler(this, &mainWindow::negative_Button_Click);
+			// 
 			// btn_Nine
-			//
+			// 
 			this->btn_Nine->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Nine->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Nine->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																static_cast<System::Byte>(0)));
 			this->btn_Nine->Location = System::Drawing::Point(237, 151);
 			this->btn_Nine->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Nine->Name = L"btn_Nine";
@@ -276,11 +286,12 @@ namespace Calculator
 			this->btn_Nine->Text = L"9";
 			this->btn_Nine->UseVisualStyleBackColor = true;
 			this->btn_Nine->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// btn_One
-			//
+			// 
 			this->btn_One->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_One->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_One->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+															   static_cast<System::Byte>(0)));
 			this->btn_One->Location = System::Drawing::Point(1, 301);
 			this->btn_One->Margin = System::Windows::Forms::Padding(1);
 			this->btn_One->Name = L"btn_One";
@@ -289,11 +300,12 @@ namespace Calculator
 			this->btn_One->Text = L"1";
 			this->btn_One->UseVisualStyleBackColor = true;
 			this->btn_One->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// btn_Percent
-			//
+			// 
 			this->btn_Percent->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Percent->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Percent->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																   static_cast<System::Byte>(0)));
 			this->btn_Percent->Location = System::Drawing::Point(1, 1);
 			this->btn_Percent->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Percent->Name = L"btn_Percent";
@@ -302,11 +314,12 @@ namespace Calculator
 			this->btn_Percent->Text = L"%";
 			this->btn_Percent->UseVisualStyleBackColor = true;
 			this->btn_Percent->Click += gcnew System::EventHandler(this, &mainWindow::operation_Buttons);
-			//
+			// 
 			// btn_Period
-			//
+			// 
 			this->btn_Period->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Period->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Period->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																  static_cast<System::Byte>(0)));
 			this->btn_Period->Location = System::Drawing::Point(237, 376);
 			this->btn_Period->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Period->Name = L"btn_Period";
@@ -315,11 +328,12 @@ namespace Calculator
 			this->btn_Period->Text = L".";
 			this->btn_Period->UseVisualStyleBackColor = true;
 			this->btn_Period->Click += gcnew System::EventHandler(this, &mainWindow::decimal_Buttons);
-			//
+			// 
 			// btn_Seven
-			//
+			// 
 			this->btn_Seven->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Seven->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Seven->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																 static_cast<System::Byte>(0)));
 			this->btn_Seven->Location = System::Drawing::Point(1, 151);
 			this->btn_Seven->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Seven->Name = L"btn_Seven";
@@ -328,11 +342,12 @@ namespace Calculator
 			this->btn_Seven->Text = L"7";
 			this->btn_Seven->UseVisualStyleBackColor = true;
 			this->btn_Seven->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// btn_Six
-			//
+			// 
 			this->btn_Six->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Six->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Six->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+															   static_cast<System::Byte>(0)));
 			this->btn_Six->Location = System::Drawing::Point(237, 226);
 			this->btn_Six->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Six->Name = L"btn_Six";
@@ -341,11 +356,12 @@ namespace Calculator
 			this->btn_Six->Text = L"6";
 			this->btn_Six->UseVisualStyleBackColor = true;
 			this->btn_Six->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// btn_Substract
-			//
+			// 
 			this->btn_Substract->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Substract->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Substract->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																	 static_cast<System::Byte>(0)));
 			this->btn_Substract->Location = System::Drawing::Point(355, 226);
 			this->btn_Substract->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Substract->Name = L"btn_Substract";
@@ -354,11 +370,12 @@ namespace Calculator
 			this->btn_Substract->Text = L"-";
 			this->btn_Substract->UseVisualStyleBackColor = true;
 			this->btn_Substract->Click += gcnew System::EventHandler(this, &mainWindow::operation_Buttons);
-			//
+			// 
 			// btn_Three
-			//
+			// 
 			this->btn_Three->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Three->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Three->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																 static_cast<System::Byte>(0)));
 			this->btn_Three->Location = System::Drawing::Point(237, 301);
 			this->btn_Three->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Three->Name = L"btn_Three";
@@ -367,11 +384,12 @@ namespace Calculator
 			this->btn_Three->Text = L"3";
 			this->btn_Three->UseVisualStyleBackColor = true;
 			this->btn_Three->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// btn_Two
-			//
+			// 
 			this->btn_Two->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Two->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Two->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+															   static_cast<System::Byte>(0)));
 			this->btn_Two->Location = System::Drawing::Point(119, 301);
 			this->btn_Two->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Two->Name = L"btn_Two";
@@ -380,11 +398,12 @@ namespace Calculator
 			this->btn_Two->Text = L"2";
 			this->btn_Two->UseVisualStyleBackColor = true;
 			this->btn_Two->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// btn_Zero
-			//
+			// 
 			this->btn_Zero->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->btn_Zero->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->btn_Zero->Font = (gcnew System::Drawing::Font(L"Narkisim", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																static_cast<System::Byte>(0)));
 			this->btn_Zero->Location = System::Drawing::Point(119, 376);
 			this->btn_Zero->Margin = System::Windows::Forms::Padding(1);
 			this->btn_Zero->Name = L"btn_Zero";
@@ -393,45 +412,51 @@ namespace Calculator
 			this->btn_Zero->Text = L"0";
 			this->btn_Zero->UseVisualStyleBackColor = true;
 			this->btn_Zero->Click += gcnew System::EventHandler(this, &mainWindow::number_Inputs);
-			//
+			// 
 			// button1
-			//
+			// 
 			this->button1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->button1->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+															   static_cast<System::Byte>(0)));
 			this->button1->Location = System::Drawing::Point(1, 76);
 			this->button1->Margin = System::Windows::Forms::Padding(1);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(116, 73);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"button1";
+			this->button1->Text = L"⅟";
 			this->button1->UseVisualStyleBackColor = true;
-			//
+			this->button1->Click += gcnew System::EventHandler(this, &mainWindow::operation_Buttons);
+			// 
 			// button2
-			//
+			// 
 			this->button2->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
+			this->button2->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+															   static_cast<System::Byte>(0)));
 			this->button2->Location = System::Drawing::Point(119, 76);
 			this->button2->Margin = System::Windows::Forms::Padding(1);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(116, 73);
 			this->button2->TabIndex = 1;
-			this->button2->Text = L"button2";
+			this->button2->Text = L"x²";
 			this->button2->UseVisualStyleBackColor = true;
-			//
-			// button3
-			//
-			this->button3->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F));
-			this->button3->Location = System::Drawing::Point(237, 76);
-			this->button3->Margin = System::Windows::Forms::Padding(1);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(116, 73);
-			this->button3->TabIndex = 2;
-			this->button3->Text = L"button3";
-			this->button3->UseVisualStyleBackColor = true;
-			//
+			this->button2->Click += gcnew System::EventHandler(this, &mainWindow::operation_Buttons);
+			// 
+			// btn_SqrRoot
+			// 
+			this->btn_SqrRoot->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->btn_SqrRoot->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																   static_cast<System::Byte>(0)));
+			this->btn_SqrRoot->Location = System::Drawing::Point(237, 76);
+			this->btn_SqrRoot->Margin = System::Windows::Forms::Padding(1);
+			this->btn_SqrRoot->Name = L"btn_SqrRoot";
+			this->btn_SqrRoot->Size = System::Drawing::Size(116, 73);
+			this->btn_SqrRoot->TabIndex = 2;
+			this->btn_SqrRoot->Text = L"√";
+			this->btn_SqrRoot->UseVisualStyleBackColor = true;
+			this->btn_SqrRoot->Click += gcnew System::EventHandler(this, &mainWindow::operation_Buttons);
+			// 
 			// tableLayoutPanel1
-			//
+			// 
 			this->tableLayoutPanel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 																								  | System::Windows::Forms::AnchorStyles::Left)
 																								 | System::Windows::Forms::AnchorStyles::Right));
@@ -464,7 +489,7 @@ namespace Calculator
 			this->tableLayoutPanel1->Controls->Add(this->btn_Eight, 1, 2);
 			this->tableLayoutPanel1->Controls->Add(this->btn_Seven, 0, 2);
 			this->tableLayoutPanel1->Controls->Add(this->btn_Division, 3, 1);
-			this->tableLayoutPanel1->Controls->Add(this->button3, 2, 1);
+			this->tableLayoutPanel1->Controls->Add(this->btn_SqrRoot, 2, 1);
 			this->tableLayoutPanel1->Controls->Add(this->button2, 1, 1);
 			this->tableLayoutPanel1->Controls->Add(this->button1, 0, 1);
 			this->tableLayoutPanel1->Controls->Add(this->btn_Percent, 0, 0);
@@ -482,9 +507,9 @@ namespace Calculator
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
 			this->tableLayoutPanel1->Size = System::Drawing::Size(472, 453);
 			this->tableLayoutPanel1->TabIndex = 0;
-			//
+			// 
 			// tableLayoutPanel2
-			//
+			// 
 			this->tableLayoutPanel2->CellBorderStyle = System::Windows::Forms::TableLayoutPanelCellBorderStyle::Single;
 			this->tableLayoutPanel2->ColumnCount = 1;
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
@@ -501,9 +526,9 @@ namespace Calculator
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
 			this->tableLayoutPanel2->Size = System::Drawing::Size(472, 194);
 			this->tableLayoutPanel2->TabIndex = 1;
-			//
+			// 
 			// tableLayoutPanel4
-			//
+			// 
 			this->tableLayoutPanel4->ColumnCount = 2;
 			this->tableLayoutPanel4->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 																								  50)));
@@ -517,9 +542,9 @@ namespace Calculator
 			this->tableLayoutPanel4->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
 			this->tableLayoutPanel4->Size = System::Drawing::Size(470, 53);
 			this->tableLayoutPanel4->TabIndex = 1;
-			//
+			// 
 			// tableLayoutPanel5
-			//
+			// 
 			this->tableLayoutPanel5->ColumnCount = 1;
 			this->tableLayoutPanel5->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 																								  100)));
@@ -534,11 +559,15 @@ namespace Calculator
 			this->tableLayoutPanel5->RowCount = 2;
 			this->tableLayoutPanel5->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 26.26263F)));
 			this->tableLayoutPanel5->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 73.73737F)));
+			this->tableLayoutPanel5->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+			this->tableLayoutPanel5->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+			this->tableLayoutPanel5->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+			this->tableLayoutPanel5->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
 			this->tableLayoutPanel5->Size = System::Drawing::Size(470, 138);
 			this->tableLayoutPanel5->TabIndex = 2;
-			//
+			// 
 			// tb_smallWindow
-			//
+			// 
 			this->tb_smallWindow->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->tb_smallWindow->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tb_smallWindow->Font = (gcnew System::Drawing::Font(L"MS Reference Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -552,36 +581,36 @@ namespace Calculator
 			this->tb_smallWindow->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->tb_smallWindow->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_smallWindow_MouseClick);
 			this->tb_smallWindow->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_smallWindow_MouseDown);
-			//
+			// 
 			// tb_MainCalcText
-			//
+			// 
 			this->tb_MainCalcText->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 																								| System::Windows::Forms::AnchorStyles::Left)
 																							   | System::Windows::Forms::AnchorStyles::Right));
 			this->tb_MainCalcText->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->tb_MainCalcText->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 52, System::Drawing::FontStyle::Bold));
-			this->tb_MainCalcText->ImeMode = System::Windows::Forms::ImeMode::On;
+			this->tb_MainCalcText->Font = (gcnew System::Drawing::Font(L"MS Gothic", 52, System::Drawing::FontStyle::Bold));
+			this->tb_MainCalcText->ImeMode = System::Windows::Forms::ImeMode::Off;
 			this->tb_MainCalcText->Location = System::Drawing::Point(0, 36);
 			this->tb_MainCalcText->Margin = System::Windows::Forms::Padding(0);
-			this->tb_MainCalcText->MaxLength = 16;
+			this->tb_MainCalcText->MaxLength = 5;
 			this->tb_MainCalcText->Name = L"tb_MainCalcText";
 			this->tb_MainCalcText->ReadOnly = true;
 			this->tb_MainCalcText->Size = System::Drawing::Size(470, 87);
 			this->tb_MainCalcText->TabIndex = 2;
 			this->tb_MainCalcText->Text = L"0";
 			this->tb_MainCalcText->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->tb_MainCalcText->WordWrap = false;
 			this->tb_MainCalcText->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_MainCalcText_MouseClick);
 			this->tb_MainCalcText->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &mainWindow::tb_MainCalcText_MouseDown);
-			//
+			// 
 			// mainWindow
-			//
+			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
 			this->ClientSize = System::Drawing::Size(472, 651);
 			this->Controls->Add(this->tableLayoutPanel2);
 			this->Controls->Add(this->tableLayoutPanel1);
-			this->Icon = gcnew System::Drawing::Icon("src/Pics/Calculator.ico");
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->MinimumSize = System::Drawing::Size(472, 651);
 			this->Name = L"mainWindow";
@@ -591,24 +620,28 @@ namespace Calculator
 			this->tableLayoutPanel5->ResumeLayout(false);
 			this->tableLayoutPanel5->PerformLayout();
 			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 		//***************************************************************************************
-
-		   //Variables that are needed to draging windows
-		bool is_dragging = false;
-		Point drag_Cursor_point;
-		Point drag_WindowForm_Point;
+		//Variables that are needed to draging windows arount if Nedded
+		//bool is_dragging = false;
+		//Point drag_Cursor_point;
+		//Point drag_WindowForm_Point;
 
 		//Supporting numbers
 		double num1{}, num2{};
 		bool is_operator_clicked;
+		bool is_divide_by_zero = false;
+		bool is_equal_clicked = false;
+
+		//Calculation functions
+
+		double Calc(double, String ^);
+		double Calc(double, String ^, double);
 		String ^oper_char; //operator char
 		Button ^number_in;
 		Button ^btn_operator;
-
-		//Calculation functions
-		double Calc(double, String ^, double);
 
 		// Draging window
 	//private: System::Void tbl_TitleBar_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e);
@@ -633,5 +666,7 @@ namespace Calculator
 		System::Void btn_BackSpace_Click(System::Object ^sender, System::EventArgs ^e);
 		//Equality button
 		System::Void btn_Equal_Click(System::Object ^sender, System::EventArgs ^e);
+		//Negative Button
+		System::Void negative_Button_Click(System::Object ^sender, System::EventArgs ^e);
 	};
 }

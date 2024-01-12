@@ -31,5 +31,11 @@
     <Image Include="src\pics\Calculator.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="$this.Icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

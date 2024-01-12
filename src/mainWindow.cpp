@@ -4,6 +4,7 @@
 #include<string>
 #include<vector>
 #include<algorithm>
+#include<cmath>
 
 using namespace std;
 using namespace System;
@@ -17,79 +18,73 @@ using namespace System::Runtime::InteropServices;
 namespace Calculator
 {
 	//=============================== Calculation Functions  ==============================================
-	double mainWindow::Calc(double num1, String ^oper_char, double num2)
+	double mainWindow::Calc(double, String ^)
 	{
-		if(oper_char == "+")
+		double result = 0;
+		if(oper_char == "√")
 		{
-			return num1 += num2;
+			result = sqrt(num1);
+			return result;
 		}
-		else if(oper_char == "-")
+		else if(oper_char == "x²")
 		{
-			return num1 -= num2;
+			return 0.0;
 		}
-		else if(oper_char == "*")
+		else if(oper_char == "⅟")
 		{
-			return num1 *= num2;
-		}
-		else if(oper_char == "/")
-		{
-			return num1 /= num2;
+			return 0.0;
 		}
 		else
 		{
-			return num1;
+			return 0;
+		}
+	}
+
+	double mainWindow::Calc(double num1, String ^oper_char, double num2)
+	{
+		double result = 0;
+		if(oper_char == "+")
+		{
+			result = num1 + num2;
+
+			return result;
+		}
+		else if(oper_char == "-")
+		{
+			result = num1 - num2;
+
+			return result;
+		}
+		else if(oper_char == "×")
+		{
+			result = num1 * num2;
+
+			return result;
+		}
+		else if(oper_char == "÷")
+		{
+			if(num2 == 0)
+			{
+				is_divide_by_zero = true;
+				tb_MainCalcText->Font = gcnew System::Drawing::Font("MS Gothic", 24, System::Drawing::FontStyle::Bold);
+				tb_MainCalcText->Text = "Cannot divide by zero";
+				return result;
+			}
+			else
+			{
+				is_divide_by_zero = false;
+				result = num1 / num2;
+				return result;
+			}
+		}
+		else
+		{
+			result = num1;
+			return result;
 		}
 	}
 
 	//=============================== END Calculation Functions ==============================================
-	//=============================== Dragging Window ==============================================
-	//System::Void Calculator::mainWindow::tbl_TitleBar_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
-	//{
-	//	is_dragging = true;
-	//	//getting mouse cursor position
-	//	drag_Cursor_point = Cursor->Position;
-	//	//getting this(mainWindow) form location
-	//	drag_WindowForm_Point = mainWindow::Location;
-	//}
-
-	//System::Void mainWindow::tbl_TitleBar_MouseMove(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
-	//{
-	//	//Only if left mouse button down on window form clicked
-	//	if(e->Button == System::Windows::Forms::MouseButtons::Left)
-	//	{
-	//		Point new_position = Point::Subtract(Cursor->Position, System::Drawing::Size(drag_Cursor_point));
-	//		mainWindow::Location = Point::Add(drag_WindowForm_Point, System::Drawing::Size(new_position));
-	//	}
-	//}
-
-	//System::Void Calculator::mainWindow::tbl_TitleBar_MouseUp(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
-	//{
-	//	is_dragging = false;
-	//}
-	//=============================== END  Dragging Window ==============================================
-
-	//============================== Window Buttons  ===========================================================
-	//System::Void Calculator::mainWindow::window_Action_Buttons(System::Object ^sender, System::EventArgs ^e)
-	//{
-	//	//tabindex:
-	//	// 0 - close window
-	//	// 1 - maximize
-	//	// 2 - minimize
-
-	//	Button ^action_Btn = safe_cast<Button ^>(sender);
-	//	if(action_Btn->TabIndex == 0)
-	//	{
-	//		this->Close();
-	//	}
-	//	if(action_Btn->TabIndex == 1)
-	//	{
-	//	}
-	//	if(action_Btn->TabIndex == 2)
-	//	{
-	//	}
-	//}
-	//============================== End Window Buttons  ===========================================================
-
 	//============================== Hidding Carret From TextBox ===========================================================
 	System::Void mainWindow::tb_MainCalcText_MouseClick(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
 	{
@@ -107,7 +102,6 @@ namespace Calculator
 		//Had to cast Rich Text Box to HWND to hide caret from blinking, using static_cast<HWND>
 		HideCaret(Caret_MainCalcText);
 	}
-
 	System::Void mainWindow::tb_smallWindow_MouseClick(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
 	{
 		HWND Caret_smallCalcText;
@@ -115,7 +109,6 @@ namespace Calculator
 
 		HideCaret(Caret_smallCalcText);
 	}
-
 	System::Void mainWindow::tb_smallWindow_MouseDown(System::Object ^sender, System::Windows::Forms::MouseEventArgs ^e)
 	{
 		HWND Caret_smallCalcText;
@@ -131,14 +124,18 @@ namespace Calculator
 	{
 		number_in = safe_cast<Button ^>(sender);
 
-		if(tb_MainCalcText->Text == "0")
+		if(tb_MainCalcText->Text->Length < 16)
 		{
-			tb_MainCalcText->Text = number_in->Text;
-			tb_MainCalcText->Modified = true;
-		}
-		else
-		{
-			if(!tb_MainCalcText->Modified)
+			if(tb_MainCalcText->Text->Length == 9)
+			{
+				tb_MainCalcText->Font = gcnew System::Drawing::Font("MS Gothic", 24, System::Drawing::FontStyle::Bold);
+			}
+			if(tb_MainCalcText->Text == "0")
+			{
+				tb_MainCalcText->Text = number_in->Text;
+				tb_MainCalcText->Modified = true;
+			}
+			else if(!tb_MainCalcText->Modified)
 			{
 				tb_MainCalcText->Text = number_in->Text;
 				tb_MainCalcText->Modified = true;
@@ -149,32 +146,6 @@ namespace Calculator
 				tb_MainCalcText->Modified = true;
 			}
 		}
-		// //if(tb_MainCalcText->Text == "0")
-		//{
-		//	tb_MainCalcText->Text = number_in->Text;
-		//}
-		//else if(is_operator_clicked == true)
-		//{
-		//	if(is_operator_clicked == true && tb_MainCalcText->Modified == true)
-		//	{
-		//		tb_MainCalcText->Text += number_in->Text;
-		//	}
-		//	else
-		//	{
-		//		tb_MainCalcText->Text = number_in->Text;
-		//	}
-		//}
-		//else
-		//{
-		//	if(tb_MainCalcText->Modified == false)
-		//	{
-		//		tb_MainCalcText->Text += number_in->Text;
-		//	}
-		//	else
-		//	{
-		//		tb_MainCalcText->Text = number_in->Text;
-		//	}
-		//}
 	}
 	//========================================End Number buttons=====================================================
 	//=============================Operator buttons +,-,*,^,/,. =====================================================
@@ -186,10 +157,22 @@ namespace Calculator
 		if(!is_operator_clicked)
 		{
 			oper_char = btn_operator->Text;
-			num1 = double::Parse(tb_MainCalcText->Text);
-			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
-			is_operator_clicked = true;
-			tb_MainCalcText->Modified = false;
+			if(oper_char == "√" || oper_char == "x²" || oper_char == "⅟")
+			{
+				num1 = double::Parse(tb_MainCalcText->Text);
+				tb_smallWindow->Text += oper_char + "(" + num1.ToString() + ")";
+				num1 = Calc(num1, oper_char);
+				is_operator_clicked = true;
+				tb_MainCalcText->Modified = false;
+				tb_MainCalcText->Text = num1.ToString();
+			}
+			else
+			{
+				num1 = double::Parse(tb_MainCalcText->Text);
+				tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
+				is_operator_clicked = true;
+				tb_MainCalcText->Modified = false;
+			}
 		}
 		else if(!tb_MainCalcText->Modified)
 		{
@@ -205,6 +188,7 @@ namespace Calculator
 			tb_MainCalcText->Text = num1.ToString();
 		}
 	}
+
 	System::Void mainWindow::decimal_Buttons(System::Object ^sender, System::EventArgs ^e)
 	{
 		Button ^decimal_Button = safe_cast<Button ^>(sender);
@@ -221,13 +205,20 @@ namespace Calculator
 	}
 	System::Void mainWindow::btn_BackSpace_Click(System::Object ^sender, System::EventArgs ^e)
 	{
-		tb_MainCalcText->Text = tb_MainCalcText->Text->Remove(tb_MainCalcText->TextLength - 1);
-
-		if(tb_MainCalcText->Text == "")
+		if(!is_equal_clicked)
 		{
-			tb_MainCalcText->Text = "0";
+			tb_MainCalcText->Text = tb_MainCalcText->Text->Remove(tb_MainCalcText->TextLength - 1);
+
+			if(tb_MainCalcText->Text == "")
+			{
+				tb_MainCalcText->Text = "0";
+			}
+			tb_MainCalcText->Modified = true;
 		}
-		tb_MainCalcText->Modified = true;
+		else
+		{
+			tb_smallWindow->Clear();
+		}
 	}
 	System::Void mainWindow::btn_Clear_Click(System::Object ^sender, System::EventArgs ^e)
 	{
@@ -256,27 +247,49 @@ namespace Calculator
 	//===================================Operator equality = =====================================================
 	System::Void mainWindow::btn_Equal_Click(System::Object ^sender, System::EventArgs ^e)
 	{
+		is_equal_clicked = true;
 		if(tb_MainCalcText->Modified)
 		{
 			if(!is_operator_clicked)
 			{
 				num1 = double::Parse(tb_MainCalcText->Text);
 				tb_smallWindow->Text = num1.ToString() + " =";
+				tb_MainCalcText->Modified = false;
 			}
-			else
+			else if(is_operator_clicked)
 			{
 				num2 = double::Parse(tb_MainCalcText->Text);
 				tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
 				num1 = Calc(num1, oper_char, num2);
-				tb_MainCalcText->Text = num1.ToString();
+				if(!is_divide_by_zero)
+				{
+					tb_MainCalcText->Text = num1.ToString();
+				}
+				is_operator_clicked = false;
 			}
 		}
 		else
 		{
-			tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+			if(num2 < 0)
+			{
+				tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + "(" + num2.ToString() + ")" + " =";
+			}
+			else
+			{
+				tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+			}
 			num1 = Calc(num1, oper_char, num2);
 			tb_MainCalcText->Text = num1.ToString();
 		}
+
+		//============================== END Operator equality = =====================================================
 	}
-	//============================== END Operator equality = =====================================================
+	System::Void mainWindow::negative_Button_Click(System::Object ^sender, System::EventArgs ^e)
+	{
+		double temp_num;
+		temp_num = double::Parse(tb_MainCalcText->Text);
+		temp_num *= (-1);
+
+		tb_MainCalcText->Text = temp_num.ToString();
+	}
 }

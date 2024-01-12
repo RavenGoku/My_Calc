@@ -140,6 +140,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="$this.Icon.ico" />
+    <Image Include="Icon1.ico" />
     <Image Include="src\pics\Calculator.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
