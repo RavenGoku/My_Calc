@@ -370,6 +370,7 @@ namespace Calculator
 					{
 						tb_MainCalcText->Text = num1.ToString();
 					}
+					is_MainWindow_Modified = true;
 				}
 			}
 			else
