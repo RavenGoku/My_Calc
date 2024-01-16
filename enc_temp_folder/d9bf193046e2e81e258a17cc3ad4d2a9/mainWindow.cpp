@@ -213,35 +213,6 @@ namespace Calculator
 		btn_operator = safe_cast<Button ^>(sender);
 		special_oper_char = btn_operator->Text;
 
-		if(!is_special_op_clicked)
-		{
-			//num1 = Double::Parse(tb_MainCalcText->Text);
-			//if(special_oper_char->Contains("√"))
-			//{
-			//	special_oper_char = btn_operator->Text + "(" + num1.ToString() + ")";
-			//	tb_smallWindow->Text = special_oper_char; //+ "(" + num1.ToString() + ") ";
-			//}
-			//else if(special_oper_char == "x²")
-			//{
-			//}
-			//num1 = Calc(num1, special_oper_char);
-			//tb_MainCalcText->Text = num1.ToString();
-		}
-		else
-		{
-			//num2 = Double::Parse(tb_MainCalcText->Text);
-			//if(special_oper_char->Contains("√"))
-			//{
-			//	special_oper_char = btn_operator->Text + "(" + num2.ToString() + ")";
-			//	tb_smallWindow->Text += special_oper_char; //+ "(" + num1.ToString() + ") ";
-			//}
-			//else if(special_oper_char == "x²")
-			//{
-			//}
-			//num2 = Calc(num2, special_oper_char);
-			//tb_MainCalcText->Text = num2.ToString();
-		}
-		//special_oper_char = btn_operator->Text + "(" + num1.ToString() + ")";
 		is_special_op_clicked = true;
 		is_MainWindow_Modified = false;
 	}
