@@ -147,7 +147,6 @@ namespace Calculator
 		{
 			tb_MainCalcText->Text = number_in->Text;
 			is_MainWindow_Modified = true;
-
 		}
 		else
 		{
