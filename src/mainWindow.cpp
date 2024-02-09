@@ -34,6 +34,10 @@ namespace Calculator
 			result = 1 / num;
 			return result;
 		}
+		else
+		{ // else iffff
+			return 0.0;
+		}
 	}
 
 	double mainWindow::Calc(double num1, String ^oper_char, double num2)
@@ -153,7 +157,7 @@ namespace Calculator
 						tb_MainCalcText->Text = number_in->Text;
 					}
 				}
-				else //if(is_equal_clicked)
+				else //if(is_equal_clicked) when clicked
 				{
 					tb_MainCalcText->Text = number_in->Text;
 					is_equal_clicked = false;
