@@ -615,6 +615,7 @@ namespace Calculator
 			this->ClientSize = System::Drawing::Size(472, 651);
 			this->Controls->Add(this->tableLayoutPanel2);
 			this->Controls->Add(this->tbl_LayoutButtons);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon ^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->MinimumSize = System::Drawing::Size(472, 651);
 			this->Name = L"mainWindow";
