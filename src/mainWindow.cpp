@@ -35,7 +35,7 @@ namespace Calculator
 			return result;
 		}
 		else
-		{ // else iffff
+		{
 			return 0.0;
 		}
 	}
@@ -74,6 +74,7 @@ namespace Calculator
 			{
 				is_divide_by_zero = false;
 				result = num1 / num2;
+				tb_MainCalcText->Text = result.ToString();
 				return result;
 			}
 		}
@@ -157,7 +158,7 @@ namespace Calculator
 						tb_MainCalcText->Text = number_in->Text;
 					}
 				}
-				else //if(is_equal_clicked) when clicked
+				else //if(is_equal_clicked)
 				{
 					tb_MainCalcText->Text = number_in->Text;
 					is_equal_clicked = false;
@@ -169,8 +170,8 @@ namespace Calculator
 				{
 					tb_smallWindow->Clear();
 					tb_MainCalcText->Text = number_in->Text;
-					is_operator_clicked = false;
 					is_special_op_clicked = false;
+					is_operator_clicked = false;
 					is_equal_clicked = false;
 				}
 				else
@@ -183,11 +184,14 @@ namespace Calculator
 					else
 					{
 						tb_MainCalcText->Text += number_in->Text;
+						//is_operator_clicked = false;
 					}
 				}
 			}
 		}
+
 		is_MainWindow_Modified = true;
+		tb_MainCalcText->Font = gcnew System::Drawing::Font("MS Gothic", 52, System::Drawing::FontStyle::Bold);
 	}
 	//========================================End Number buttons=====================================================
 
@@ -202,64 +206,66 @@ namespace Calculator
 			{
 				oper_char = btn_operator->Text;
 				num1 = double::Parse(tb_MainCalcText->Text);
-				tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
-				is_MainWindow_Modified = false;
-			}
-			else //if(is_operator_clicked)
-			{
+
 				if(!is_special_op_clicked)
 				{
-					oper_char = btn_operator->Text;
 					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
 				}
 				else //if(is_special_op_clicked)
 				{
-					oper_char = btn_operator->Text;
+					tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " ";
+				}
+			}
+			else //if(is_operator_clicked)
+			{
+				oper_char = btn_operator->Text;
+
+				if(!is_special_op_clicked)
+				{
+					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
+				}
+				else //if(is_special_op_clicked)
+				{
 					tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " ";
 				}
 			}
 		}
-		else if(is_MainWindow_Modified)
+		else //if(is_MainWindow_Modified)
 		{
 			if(!is_operator_clicked)
 			{
-				if(is_special_op_clicked)
-				{
-					oper_char = btn_operator->Text;
-					num1 = double::Parse(tb_MainCalcText->Text);
+				oper_char = btn_operator->Text;
+				num1 = double::Parse(tb_MainCalcText->Text);
 
-					tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " ";
-				}
-				else //if(!is_special_op_clicked)
+				if(!is_special_op_clicked)
 				{
-					oper_char = btn_operator->Text;
-					num1 = double::Parse(tb_MainCalcText->Text);
 					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
 				}
+				else //if(is_special_op_clicked)
+				{
+					tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " ";
+				}
 
-				is_special_op_clicked = false;
 				is_equal_clicked = false;
 				is_divide_by_zero = false;
 			}
-			else if(is_operator_clicked)
+			else //if(is_operator_clicked)
 			{
-				if(is_equal_clicked)
-				{
-					oper_char = btn_operator->Text;
-					num1 = double::Parse(tb_MainCalcText->Text);
-					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
-					//is_MainWindow_Modified = false;
-					is_equal_clicked = false;
-				}
-				else //if(!is_equal_clicked)
+				if(!is_equal_clicked)
 				{
 					num2 = double::Parse(tb_MainCalcText->Text);
 					num1 = Calc(num1, oper_char, num2);
 					oper_char = btn_operator->Text;
 					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
 					tb_MainCalcText->Text = num1.ToString();
-					//is_MainWindow_Modified = false;
 					is_special_op_clicked = false;
+				}
+				else //if(is_equal_clicked)
+				{
+					oper_char = btn_operator->Text;
+					num1 = double::Parse(tb_MainCalcText->Text);
+					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
+					is_equal_clicked = false;
 				}
 			}
 		}
@@ -274,38 +280,59 @@ namespace Calculator
 		btn_operator = safe_cast<Button ^>(sender);
 
 		special_oper_char = btn_operator->Text;
-		if(is_MainWindow_Modified)
+		if(!is_MainWindow_Modified)
 		{
-			/////////////////////////////////////////////////////////////
+			if(!is_operator_clicked)
+			{
+				num1 = Double::Parse(tb_MainCalcText->Text);
+				//changing special operator character text to button operator acessible name(ex. x2 to sqr)
+				temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + num1.ToString() + ")";
+				tb_smallWindow->Text = temp_string_num1;
+				num1 = Calc(num1, special_oper_char);
+				tb_MainCalcText->Text = num1.ToString();
+			}
+			else //if(is_operator_clicked)
+			{
+				num2 = Double::Parse(tb_MainCalcText->Text);
+				if(!is_special_op_clicked)
+				{
+					//changing text from button operator acessible name if button contains one of the special characters to words instead of special character
+					temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + num2.ToString() + ")";
+					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + temp_string_num2;
+					num2 = Calc(num2, special_oper_char);
+					tb_MainCalcText->Text = num2.ToString();
+				}
+				else
+				{
+					//adding up special operators to small window
+					temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + temp_string_num2 + ")";
+					tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " " + temp_string_num2;
+					num2 = Calc(num2, special_oper_char);
+					tb_MainCalcText->Text = num2.ToString();
+				}
+			}
+			is_MainWindow_Modified = true;
+		}
+		else //if(is_MainWindow_Modified)
+		{
 			if(!is_operator_clicked)
 			{
 				if(!is_special_op_clicked)
 				{
 					num1 = Double::Parse(tb_MainCalcText->Text);
-					//changing text from button operator acessible name if button contains one of the special characters to words instead of special character
 					temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + num1.ToString() + ")";
 					tb_smallWindow->Text = temp_string_num1;
 					num1 = Calc(num1, special_oper_char);
 					tb_MainCalcText->Text = num1.ToString();
+					is_equal_clicked = false;
 				}
 				else //if(is_special_op_clicked)
 				{
-					if(!is_equal_clicked)
-					{
-						//adding up special operators to small window
-						num1 = Calc(num1, special_oper_char);
-						tb_MainCalcText->Text = num1.ToString();
-						temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + temp_string_num1 + ")";
-						tb_smallWindow->Text = temp_string_num1;
-					}
-					else //if(is_equal_clicked)
-					{
-						num1 = Double::Parse(tb_MainCalcText->Text);
-						tb_smallWindow->Text = btn_operator->AccessibleName->ToString() + "(" + num1.ToString() + ")";
-						num1 = Calc(num1, special_oper_char);
-						tb_MainCalcText->Text = num1.ToString();
-						is_equal_clicked = false;
-					}
+					//adding up special operators to small window
+					num1 = Calc(num1, special_oper_char);
+					tb_MainCalcText->Text = num1.ToString();
+					temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + temp_string_num1 + ")";
+					tb_smallWindow->Text = temp_string_num1;
 				}
 				if(tb_MainCalcText->Text->Length >= 15)
 				{
@@ -319,7 +346,7 @@ namespace Calculator
 					num2 = Double::Parse(tb_MainCalcText->Text);
 					//changing text from button operator acessible name if button contains one of the special characters to words instead of special character
 					temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + num2.ToString() + ")";
-					tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " " + temp_string_num2;
+					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + temp_string_num2;
 					num2 = Calc(num2, special_oper_char);
 					tb_MainCalcText->Text = num2.ToString();
 				}
@@ -331,7 +358,7 @@ namespace Calculator
 						num2 = Calc(num2, special_oper_char);
 						tb_MainCalcText->Text = num2.ToString();
 						temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + temp_string_num2 + ")";
-						tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " " + temp_string_num2;
+						tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + temp_string_num2;
 					}
 					else //if(is_equal_clicked)
 					{
@@ -350,49 +377,6 @@ namespace Calculator
 				}
 			}
 		}
-		else //if(!is_MainWindow_Modified)
-		{
-			if(!is_operator_clicked)
-			{
-				if(!is_special_op_clicked)
-				{
-					num1 = Double::Parse(tb_MainCalcText->Text);
-					//changing text from button operator acessible name if button contains one of the special characters to words instead of special character
-					temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + num1.ToString() + ")";
-					tb_smallWindow->Text = temp_string_num1;
-					num1 = Calc(num1, special_oper_char);
-					tb_MainCalcText->Text = num1.ToString();
-				}
-				else
-				{
-					num1 = Calc(num1, special_oper_char);
-					tb_MainCalcText->Text = num1.ToString();
-					temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + temp_string_num1 + ")";
-					tb_smallWindow->Text = temp_string_num1;
-				}
-			}
-			else
-			{
-				if(!is_special_op_clicked)
-				{
-					num2 = Double::Parse(tb_MainCalcText->Text);
-					//changing text from button operator acessible name if button contains one of the special characters to words instead of special character
-					temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + num2.ToString() + ")";
-					tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " " + temp_string_num2;
-					num2 = Calc(num2, special_oper_char);
-					tb_MainCalcText->Text = num2.ToString();
-				}
-				else
-				{
-					//adding up special operators to small window
-					num2 = Calc(num2, special_oper_char);
-					tb_MainCalcText->Text = num2.ToString();
-					temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + temp_string_num2 + ")";
-					tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " " + temp_string_num2;
-				}
-				is_MainWindow_Modified = true;
-			}
-		}
 
 		is_special_op_clicked = true;
 	}
@@ -405,6 +389,8 @@ namespace Calculator
 		{
 			tb_smallWindow->Clear();
 			tb_MainCalcText->Text = "0" + decimal_Button->Text;
+			is_operator_clicked = false;
+			is_equal_clicked = false;
 		}
 		else if(!is_MainWindow_Modified)
 		{
@@ -454,6 +440,7 @@ namespace Calculator
 		oper_char = nullptr;
 		special_oper_char = nullptr;
 		temp_string_num1 = nullptr;
+		temp_string_num2 = nullptr;
 		is_operator_clicked = false;
 		is_special_op_clicked = false;
 		is_MainWindow_Modified = false;
@@ -482,80 +469,54 @@ namespace Calculator
 		}
 		else
 		{
-			if(is_MainWindow_Modified)
+			if(!is_MainWindow_Modified)
 			{
-				if(is_equal_clicked)
+				if(!is_operator_clicked)
 				{
-					if(is_operator_clicked)
+					num1 = double::Parse(tb_MainCalcText->Text);
+					tb_smallWindow->Text = num1.ToString() + " =";
+				}
+				else //if(is_operator_clicked)
+				{
+					if(!is_special_op_clicked)
+					{
+						num2 = double::Parse(tb_MainCalcText->Text);
+						if(num2 < 0)
+						{
+							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " (" + num2.ToString() + ") =";
+						}
+						else
+						{
+							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+						}
+						num1 = Calc(num1, oper_char, num2);
+						tb_MainCalcText->Text = num1.ToString();
+
+						is_MainWindow_Modified = true;
+					}
+					else //if(is_special_op_clicked)
 					{
 						if(num2 != 0)
 						{
-							num1 = Double::Parse(tb_MainCalcText->Text);
-							if(num2 < 0)
-							{
-								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " (" + num2.ToString() + ") =";
-							}
-							else
-							{
-								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
-							}
+							num1 = double::Parse(tb_MainCalcText->Text);
+							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
 							num1 = Calc(num1, oper_char, num2);
 							tb_MainCalcText->Text = num1.ToString();
 						}
 						else
 						{
 							num2 = double::Parse(tb_MainCalcText->Text);
-							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+							tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " " + num2.ToString() + " =";
 							num1 = Calc(num1, oper_char, num2);
-							if(!is_divide_by_zero)
-							{
-								tb_MainCalcText->Text = num1.ToString();
-							}
 						}
-					}
-					else //if(!is_operator_clicked)
-					{
-						num1 = double::Parse(tb_MainCalcText->Text);
-						tb_smallWindow->Text = num1.ToString() + " =";
-						is_MainWindow_Modified = false;
 					}
 				}
-				else if(!is_equal_clicked)
+			}
+			else if(is_MainWindow_Modified)
+			{
+				if(!is_equal_clicked)
 				{
-					if(is_operator_clicked)
-					{
-						if(is_special_op_clicked)
-						{
-							num2 = Double::Parse(tb_MainCalcText->Text);
-
-							tb_smallWindow->Text += " =";
-							num1 = Calc(num1, oper_char, num2);
-							if(!is_divide_by_zero)
-							{
-								tb_MainCalcText->Text = num1.ToString();
-							}
-							is_MainWindow_Modified = true;
-						}
-						else if(!is_special_op_clicked)
-						{
-							num2 = Double::Parse(tb_MainCalcText->Text);
-							if(num2 < 0)
-							{
-								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " (" + num2.ToString() + ") =";
-							}
-							else
-							{
-								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
-							}
-							num1 = Calc(num1, oper_char, num2);
-							if(!is_divide_by_zero)
-							{
-								tb_MainCalcText->Text = num1.ToString();
-							}
-							is_MainWindow_Modified = true;
-						}
-					}
-					else if(!is_operator_clicked)
+					if(!is_operator_clicked)
 					{
 						if(num2 != 0)
 						{
@@ -578,71 +539,75 @@ namespace Calculator
 							is_MainWindow_Modified = false;
 						}
 					}
+					else if(is_operator_clicked)
+					{
+						if(!is_special_op_clicked)
+						{
+							num2 = Double::Parse(tb_MainCalcText->Text);
+							if(num2 < 0)
+							{
+								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " (" + num2.ToString() + ") =";
+							}
+							else
+							{
+								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+							}
+							num1 = Calc(num1, oper_char, num2);
+							tb_MainCalcText->Text = num1.ToString();
+
+							is_MainWindow_Modified = true;
+						}
+						else if(is_special_op_clicked)
+						{
+							num2 = Double::Parse(tb_MainCalcText->Text);
+
+							tb_smallWindow->Text += " =";
+							num1 = Calc(num1, oper_char, num2);
+							tb_MainCalcText->Text = num1.ToString();
+							is_MainWindow_Modified = true;
+						}
+					}
 				}
-			}
-			else if(!is_MainWindow_Modified)
-			{
-				if(is_operator_clicked)
+				else if(is_equal_clicked)
 				{
-					if(is_special_op_clicked)
+					if(!is_operator_clicked)
+					{
+						num1 = double::Parse(tb_MainCalcText->Text);
+						tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+						num1 = Calc(num1, oper_char, num2);
+						tb_MainCalcText->Text = num1.ToString();
+						is_operator_clicked = true;
+					}
+					else if(is_operator_clicked)
 					{
 						if(num2 != 0)
 						{
-							num1 = double::Parse(tb_MainCalcText->Text);
-							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+							num1 = Double::Parse(tb_MainCalcText->Text);
+							if(num2 < 0)
+							{
+								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " (" + num2.ToString() + ") =";
+							}
+							else
+							{
+								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+							}
 							num1 = Calc(num1, oper_char, num2);
 							tb_MainCalcText->Text = num1.ToString();
 						}
 						else
 						{
 							num2 = double::Parse(tb_MainCalcText->Text);
-							tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " " + num2.ToString() + " =";
-							num1 = Calc(num1, oper_char, num2);
-							tb_MainCalcText->Text = num1.ToString();
-						}
-					}
-					else if(!is_special_op_clicked)
-					{
-						num2 = double::Parse(tb_MainCalcText->Text);
-						if(num2 < 0)
-						{
-							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " (" + num2.ToString() + ") =";
-						}
-						else
-						{
 							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
+							num1 = Calc(num1, oper_char, num2);
 						}
-						num1 = Calc(num1, oper_char, num2);
-						if(!is_divide_by_zero)
-						{
-							tb_MainCalcText->Text = num1.ToString();
-						}
-						is_MainWindow_Modified = true;
 					}
-				}
-				else if(!is_operator_clicked)
-				{
-					num1 = double::Parse(tb_MainCalcText->Text);
-					tb_smallWindow->Text = num1.ToString() + " =";
 				}
 			}
+
 			is_equal_clicked = true;
 		}
-		if(tb_MainCalcText->Text->Length >= 15)
-		{
-			tb_MainCalcText->Font = gcnew System::Drawing::Font("MS Gothic", 24, System::Drawing::FontStyle::Bold);
-		}
-		else if(tb_MainCalcText->Text->Length >= 12)
-		{
-			tb_MainCalcText->Font = gcnew System::Drawing::Font("MS Gothic", 38, System::Drawing::FontStyle::Bold);
-		}
-		else if(tb_MainCalcText->Text->Length >= 10)
-		{
-			tb_MainCalcText->Font = gcnew System::Drawing::Font("MS Gothic", 45, System::Drawing::FontStyle::Bold);
-		}
-
-		//============================== END Operator equality = =====================================================
 	}
+	//============================== END Operator equality = =====================================================
 	System::Void mainWindow::negative_Button_Click(System::Object ^sender, System::EventArgs ^e)
 	{
 		double temp_num;
