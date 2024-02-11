@@ -59,18 +59,17 @@ namespace Calculator
 		System::Windows::Forms::Button ^btn_Three;
 		System::Windows::Forms::Button ^btn_Two;
 		System::Windows::Forms::Button ^btn_Zero;
-	private: System::Windows::Forms::Button ^btn_OneDivBy;
+		System::Windows::Forms::Button ^btn_OneDivBy;
+		System::Windows::Forms::Button ^btn_SqrPower;
+		System::Windows::Forms::Button ^btn_SqrRoot;
+		System::Windows::Forms::TableLayoutPanel ^tbl_LayoutButtons;
+		System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel2;
+		System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel4;
+		System::Windows::Forms::TextBox ^tb_MainCalcText;
+		System::Windows::Forms::TextBox ^tb_smallWindow;
+		System::Windows::Forms::TableLayoutPanel ^tbl_LayoutWindows;
 
-	private: System::Windows::Forms::Button ^btn_SqrPower;
-
-		   System::Windows::Forms::Button ^btn_SqrRoot;
-	private: System::Windows::Forms::TableLayoutPanel ^tbl_LayoutButtons;
-
-		   System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel2;
-		   System::Windows::Forms::TableLayoutPanel ^tableLayoutPanel4;
-		   System::Windows::Forms::TextBox ^tb_MainCalcText;
-		   System::Windows::Forms::TextBox ^tb_smallWindow;
-	private: System::Windows::Forms::TableLayoutPanel ^tbl_LayoutWindows;
+		System::Drawing::Icon ^icon;
 
 	private:
 		/// <summary>
@@ -84,7 +83,6 @@ namespace Calculator
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager ^resources = (gcnew System::ComponentModel::ComponentResourceManager(mainWindow::typeid));
 			this->btn_Add = (gcnew System::Windows::Forms::Button());
 			this->btn_BackSpace = (gcnew System::Windows::Forms::Button());
 			this->btn_CE = (gcnew System::Windows::Forms::Button());
@@ -614,10 +612,10 @@ namespace Calculator
 			this->ClientSize = System::Drawing::Size(472, 651);
 			this->Controls->Add(this->tableLayoutPanel2);
 			this->Controls->Add(this->tbl_LayoutButtons);
-			this->Icon = gcnew System::Drawing::Icon("src\\pics\\calculator64.ico");
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->MinimumSize = System::Drawing::Size(472, 651);
 			this->Name = L"mainWindow";
+			this->ShowIcon = false;
 			this->Text = L"Calculator";
 			this->tbl_LayoutButtons->ResumeLayout(false);
 			this->tableLayoutPanel2->ResumeLayout(false);
@@ -634,6 +632,8 @@ namespace Calculator
 
 		//Supporting numbers
 		double num1{}, num2{};
+		//System::Drawing::Icon ^icon{ nullptr };
+		//System::Drawing::Icon ^icon = gcnew System::Drawing::Icon("src\\pics\\calculator64.ico");
 
 		//Conditional operators
 		bool is_operator_clicked = false;;
