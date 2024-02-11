@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 namespace Calculator
 {
 	using namespace System;

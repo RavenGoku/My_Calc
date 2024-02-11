@@ -1,5 +1,6 @@
 ﻿#include"mainWindow.h"
 #include<Windows.h>
+#include<ResourceIndexer.h>
 #include<iostream>
 #include<string>
 #include<cstdlib>
