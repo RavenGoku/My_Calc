@@ -104,14 +104,14 @@ namespace Calculator
 
 			return result;
 		}
-		else if(oper_char == "x²")
-		{
-			return 0.0;
-		}
-		else if(oper_char == "⅟")
-		{
-			return 0.0;
-		}
+		//else if(oper_char == "x²")
+		//{
+		//	return 0.0;
+		//}
+		//else if(oper_char == "⅟")
+		//{
+		//	return 0.0;
+		//}
 		else
 		{
 			result = num1;
