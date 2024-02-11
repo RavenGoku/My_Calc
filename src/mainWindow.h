@@ -645,6 +645,7 @@ namespace Calculator
 		//Calculation functions
 		double Calc(double, String ^);
 		double Calc(double, String ^, double);
+		void mainWinSizeCheck();
 		String ^oper_char = nullptr; //operator char
 		String ^special_oper_char = nullptr;
 		String ^temp_string_num1 = nullptr;
