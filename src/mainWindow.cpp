@@ -22,16 +22,22 @@ namespace Calculator
 		if(oper_char->Contains("√"))
 		{
 			result = sqrt(num);
+			tb_MainCalcText->Text = result.ToString();
+
 			return result;
 		}
 		else if(oper_char->Contains("x²"))
 		{
 			result = num * num;
+			tb_MainCalcText->Text = result.ToString();
+
 			return result;
 		}
 		else if(oper_char->Contains("⅟"))
 		{
 			result = 1 / num;
+			tb_MainCalcText->Text = result.ToString();
+
 			return result;
 		}
 		else
@@ -46,18 +52,21 @@ namespace Calculator
 		if(oper_char == "+")
 		{
 			result = num1 + num2;
+			tb_MainCalcText->Text = result.ToString();
 
 			return result;
 		}
 		else if(oper_char == "-")
 		{
 			result = num1 - num2;
+			tb_MainCalcText->Text = result.ToString();
 
 			return result;
 		}
 		else if(oper_char == "×")
 		{
 			result = num1 * num2;
+			tb_MainCalcText->Text = result.ToString();
 
 			return result;
 		}
@@ -81,6 +90,8 @@ namespace Calculator
 		else if(oper_char->Contains("√"))
 		{
 			result = sqrt(num2);
+			tb_MainCalcText->Text = result.ToString();
+
 			return result;
 		}
 		else if(oper_char == "x²")
