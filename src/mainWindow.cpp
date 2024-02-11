@@ -35,8 +35,18 @@ namespace Calculator
 		}
 		else if(oper_char->Contains("⅟"))
 		{
-			result = 1 / num;
-			tb_MainCalcText->Text = result.ToString();
+			if(num == 0)
+			{
+				is_divide_by_zero = true;
+				tb_MainCalcText->Font = gcnew System::Drawing::Font("MS Gothic", 22, System::Drawing::FontStyle::Bold);
+				tb_MainCalcText->Text = "Cannot divide by zero";
+				return result;
+			}
+			else
+			{
+				result = 1 / num;
+				tb_MainCalcText->Text = result.ToString();
+			}
 
 			return result;
 		}
@@ -268,7 +278,6 @@ namespace Calculator
 					num1 = Calc(num1, oper_char, num2);
 					oper_char = btn_operator->Text;
 					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " ";
-					tb_MainCalcText->Text = num1.ToString();
 					is_special_op_clicked = false;
 				}
 				else //if(is_equal_clicked)
@@ -300,7 +309,6 @@ namespace Calculator
 				temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + num1.ToString() + ")";
 				tb_smallWindow->Text = temp_string_num1;
 				num1 = Calc(num1, special_oper_char);
-				tb_MainCalcText->Text = num1.ToString();
 			}
 			else //if(is_operator_clicked)
 			{
@@ -311,7 +319,6 @@ namespace Calculator
 					temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + num2.ToString() + ")";
 					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + temp_string_num2;
 					num2 = Calc(num2, special_oper_char);
-					tb_MainCalcText->Text = num2.ToString();
 				}
 				else
 				{
@@ -319,7 +326,6 @@ namespace Calculator
 					temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + temp_string_num2 + ")";
 					tb_smallWindow->Text = temp_string_num1 + " " + oper_char + " " + temp_string_num2;
 					num2 = Calc(num2, special_oper_char);
-					tb_MainCalcText->Text = num2.ToString();
 				}
 			}
 			is_MainWindow_Modified = true;
@@ -334,14 +340,12 @@ namespace Calculator
 					temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + num1.ToString() + ")";
 					tb_smallWindow->Text = temp_string_num1;
 					num1 = Calc(num1, special_oper_char);
-					tb_MainCalcText->Text = num1.ToString();
 					is_equal_clicked = false;
 				}
 				else //if(is_special_op_clicked)
 				{
 					//adding up special operators to small window
 					num1 = Calc(num1, special_oper_char);
-					tb_MainCalcText->Text = num1.ToString();
 					temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + temp_string_num1 + ")";
 					tb_smallWindow->Text = temp_string_num1;
 				}
@@ -359,7 +363,6 @@ namespace Calculator
 					temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + num2.ToString() + ")";
 					tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + temp_string_num2;
 					num2 = Calc(num2, special_oper_char);
-					tb_MainCalcText->Text = num2.ToString();
 				}
 				else //if(is_special_op_clicked)
 				{
@@ -367,7 +370,6 @@ namespace Calculator
 					{
 						//adding up special operators to small window
 						num2 = Calc(num2, special_oper_char);
-						tb_MainCalcText->Text = num2.ToString();
 						temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + temp_string_num2 + ")";
 						tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + temp_string_num2;
 					}
@@ -377,7 +379,6 @@ namespace Calculator
 						temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + num1.ToString() + ")";//
 						tb_smallWindow->Text = temp_string_num1;//
 						num1 = Calc(num1, special_oper_char);
-						tb_MainCalcText->Text = num1.ToString();
 						is_equal_clicked = false;
 						is_operator_clicked = false;
 					}
@@ -501,7 +502,6 @@ namespace Calculator
 							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
 						}
 						num1 = Calc(num1, oper_char, num2);
-						tb_MainCalcText->Text = num1.ToString();
 
 						is_MainWindow_Modified = true;
 					}
@@ -512,7 +512,6 @@ namespace Calculator
 							num1 = double::Parse(tb_MainCalcText->Text);
 							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
 							num1 = Calc(num1, oper_char, num2);
-							tb_MainCalcText->Text = num1.ToString();
 						}
 						else
 						{
@@ -541,7 +540,6 @@ namespace Calculator
 								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
 							}
 							num1 = Calc(num1, oper_char, num2);
-							tb_MainCalcText->Text = num1.ToString();
 						}
 						else
 						{
@@ -564,7 +562,6 @@ namespace Calculator
 								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
 							}
 							num1 = Calc(num1, oper_char, num2);
-							tb_MainCalcText->Text = num1.ToString();
 
 							is_MainWindow_Modified = true;
 						}
@@ -574,7 +571,6 @@ namespace Calculator
 
 							tb_smallWindow->Text += " =";
 							num1 = Calc(num1, oper_char, num2);
-							tb_MainCalcText->Text = num1.ToString();
 							is_MainWindow_Modified = true;
 						}
 					}
@@ -586,7 +582,6 @@ namespace Calculator
 						num1 = double::Parse(tb_MainCalcText->Text);
 						tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
 						num1 = Calc(num1, oper_char, num2);
-						tb_MainCalcText->Text = num1.ToString();
 						is_operator_clicked = true;
 					}
 					else if(is_operator_clicked)
@@ -603,7 +598,6 @@ namespace Calculator
 								tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + num2.ToString() + " =";
 							}
 							num1 = Calc(num1, oper_char, num2);
-							tb_MainCalcText->Text = num1.ToString();
 						}
 						else
 						{
