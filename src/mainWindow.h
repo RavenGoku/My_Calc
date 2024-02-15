@@ -631,9 +631,7 @@ namespace Calculator
 		//Point drag_WindowForm_Point;
 
 		//Supporting numbers
-		double num1{}, num2{};
-		//System::Drawing::Icon ^icon{ nullptr };
-		//System::Drawing::Icon ^icon = gcnew System::Drawing::Icon("src\\pics\\calculator64.ico");
+		double num1{}, num2{}, percent_num1{}, percent_num2{};
 
 		//Conditional operators
 		bool is_operator_clicked = false;;
