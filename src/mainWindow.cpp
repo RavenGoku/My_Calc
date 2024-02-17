@@ -257,7 +257,7 @@ namespace Calculator
 			{
 				oper_char = btn_operator->Text;
 
-				if(special_oper_char->Contains("%"))
+				if(special_oper_char != nullptr && special_oper_char->Contains("%"))
 				{
 					num1 = Double::Parse(tb_MainCalcText->Text);
 					temp_string_num1 += "(" + num1.ToString() + ")";
@@ -301,6 +301,7 @@ namespace Calculator
 		}
 		is_MainWindow_Modified = false;
 		is_operator_clicked = true;
+		special_oper_char = nullptr;//////
 	}
 	//========================================End ===================================================================
 
@@ -314,11 +315,14 @@ namespace Calculator
 		{
 			if(!is_operator_clicked)
 			{
-				num1 = Double::Parse(tb_MainCalcText->Text);
-				//changing special operator character text to button operator acessible name(ex. x2 to sqr)
-				temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + num1.ToString() + ")";
-				tb_smallWindow->Text = temp_string_num1;
-				num1 = Calc(num1, special_oper_char);
+				if(!special_oper_char->Contains("%"))
+				{
+					num1 = Double::Parse(tb_MainCalcText->Text);
+					//changing special operator character text to button operator acessible name(ex. x2 to sqr)
+					temp_string_num1 = btn_operator->AccessibleName->ToString() + "(" + num1.ToString() + ")";
+					tb_smallWindow->Text = temp_string_num1;
+					num1 = Calc(num1, special_oper_char);
+				}
 			}
 			else //if(is_operator_clicked)
 			{
@@ -412,11 +416,21 @@ namespace Calculator
 					}
 					else
 					{
-						num2 = Double::Parse(tb_MainCalcText->Text);
-						//changing text from button operator acessible name if button contains one of the special characters to words instead of special character
-						temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + num2.ToString() + ")";
-						tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + temp_string_num2;
-						num2 = Calc(num2, special_oper_char);
+						if(special_oper_char != nullptr && special_oper_char->Contains("%"))
+						{
+							percent_num2 = Double::Parse(tb_MainCalcText->Text);
+							temp_string_num2 = percent_num2 + special_oper_char;
+							tb_smallWindow->Text += temp_string_num2;
+							num2 = Calc(percent_num2, special_oper_char, num1);
+						}
+						else
+						{
+							num2 = Double::Parse(tb_MainCalcText->Text);
+							//changing text from button operator acessible name if button contains one of the special characters to words instead of special character
+							temp_string_num2 = btn_operator->AccessibleName->ToString() + "(" + num2.ToString() + ")";
+							tb_smallWindow->Text = num1.ToString() + " " + oper_char + " " + temp_string_num2;
+							num2 = Calc(num2, special_oper_char);
+						}
 					}
 				}
 				else //if(is_special_op_clicked)
@@ -662,7 +676,7 @@ namespace Calculator
 					{
 						if(!is_special_op_clicked)
 						{
-							if(special_oper_char->Contains("%"))
+							if(special_oper_char != nullptr && special_oper_char->Contains("%"))//////
 							{
 								num2 = double::Parse(tb_MainCalcText->Text);
 								num2 = Calc(percent_num2, special_oper_char, num2);
@@ -718,7 +732,7 @@ namespace Calculator
 				{
 					if(!is_operator_clicked)
 					{
-						if(special_oper_char->Contains("%"))
+						if(special_oper_char != nullptr && special_oper_char->Contains("%"))
 						{
 							tb_smallWindow->Text = num1.ToString() + " =";
 							percent_num1 = 0;
@@ -760,7 +774,9 @@ namespace Calculator
 					}
 				}
 			}
-
+			temp_string_num1 = nullptr;
+			temp_string_num2 = nullptr;
+			special_oper_char = nullptr;
 			is_equal_clicked = true;
 		}
 	}
